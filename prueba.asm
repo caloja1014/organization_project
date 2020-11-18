@@ -98,6 +98,9 @@ indice:
 
     jal subStringMatch
     move $t1, $v0
+    
+    li $t3,0
+    li $t4,5
 #While busca todos los numeros de las lineas
     while:
     	add $a0,$a0,$a3
@@ -128,12 +131,14 @@ indice:
 	move $a3,$t1
 	addi $a3,$a3,1
 	
+	addi $t3,$t3,1
 	jal substring_f
+	
 	# Printing File Content
 	li  $v0, 4          # system Call for PRINT STRING
 	la  $a0, string    # buffer contains the values
     	syscall
-
+	
 	
 
 
