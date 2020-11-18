@@ -118,6 +118,7 @@ indice:
     	
     	jal findLengthString
     	move $a3, $v0 # M
+    	addi $a3,$a3,1
     	sub $a2, $a2, $a3 # N-M
 
     	move $a0,$t2
@@ -126,10 +127,12 @@ indice:
     	jal subStringMatch
     	move $t1, $v0
 	
+
+	
 	move $a1,$t2
 	la $a2,string
 	move $a3,$t1
-	addi $a3,$a3,1
+
 	
 	addi $t3,$t3,1
 	jal substring_f
