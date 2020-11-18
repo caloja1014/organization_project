@@ -98,17 +98,44 @@ indice:
 
     jal subStringMatch
     move $t1, $v0
+#While busca todos los numeros de las lineas
+    while:
+    	add $a0,$a0,$a3
+    	add $a0,$a0,$t1
+    	addi $a0,$a0,1
+ 	
+ 	move $t2,$a0
+ 	
+ 	jal findLengthString
+    	move $a2, $v0
 
+ 	la $a0, separator
+ 	
 
-    li $v0, 1
-    move $a0, $t1
-    syscall
+    	
+    	jal findLengthString
+    	move $a3, $v0 # M
+    	sub $a2, $a2, $a3 # N-M
+
+    	move $a0,$t2
+    	la $a1, separator 
+
+    	jal subStringMatch
+    	move $t1, $v0
 	
+	move $a1,$t2
+	la $a2,string
+	move $a3,$t1
+	addi $a3,$a3,1
+	
+	jal substring_f
 	# Printing File Content
 	li  $v0, 4          # system Call for PRINT STRING
-	la  $a0, buffer     # buffer contains the values
-	addi $a0,$a0,3
-	syscall   
+	la  $a0, string    # buffer contains the values
+    	syscall
+
+	
+
 
 
 
@@ -166,6 +193,24 @@ subStringMatch:
         jr $ra
 
 
+#$a1 must have the complete string
+#$a2 must have the substring
+#$a3 must have the final indiceloop:
+substring_f:
+	
+	li $t2,0
+	
+	loop:
+		add $t4,$t2,$a2
+		add $t3,$t2,$a1
+	
+		lb $s1,0($t3)
+		sb $s1,0($t4)
+
+		addi $t2,$t2,1
+		bne $t2,$a3,loop
+	jr $ra
+ 
 
 
 
@@ -184,12 +229,14 @@ subStringMatch:
 myFile: .asciiz "/home/cloja/Documents/ESPOL/6S/organizacion/proyecto/TablaIni.txt"      # filename for input
 buffer: .space 1000
 
+string: .space 1000
+
 msge1: .asciiz "Ingrese nombre de equipo 1:  "
 msgeg1: .asciiz "Ingrese de goles de equipo 1:  "
 msge2: .asciiz "Ingrese nombre de equipo 2: "
 msgeg2: .asciiz "Ingrese goles de equipo 2: "
 
-separator: .ascii ","
+separator: .asciiz ","
 
 str1: .space 100
 strg1: .space 100
@@ -197,3 +244,5 @@ str2: .space 100
 strg2: .space 100
 
 endline: .asciiz "\n"
+		
+		
