@@ -1,5 +1,6 @@
 .data  
-myFile: .asciiz "/home/cloja/Documents/ESPOL/6S/organizacion/proyecto/TablaIni.txt"      # filename for input
+#myFile: .asciiz "/home/cloja/Documents/ESPOL/6S/organizacion/proyecto/TablaIni.txt"    filename for input
+myFile : .asciiz "C:/Users/Alexis/Desktop/ESPOL/4to Semestre/Organización de computadoras/Proyecto/organization_project/TablaIni.txt"
 buffer: .space 10
 .text
 
@@ -18,7 +19,7 @@ move $s0, $v0         # save the file descriptor
 li   $v0, 14        # system call for reading from file
 move $a0, $s0       # file descriptor 
 la   $a1, buffer    # address of buffer from which to read
-li   $a2, 200      # hardcoded buffer length
+li   $a2, 1000      # hardcoded buffer length
 syscall             # read from file
 
 
