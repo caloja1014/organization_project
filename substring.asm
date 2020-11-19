@@ -37,6 +37,10 @@ substring_f:
 		lb $s1,0($t3)
 		sb $s1,0($t4)
 
+		#li $v0,4
+		#move $a0,$t3
+		#syscall
+
 		addi $t2,$t2,1
 		bne $t2,$a3,loop
 	jr $ra
@@ -54,5 +58,5 @@ substring_f:
 .data
 endline: .asciiz "\n"
 string: .space 1000
-myFile: .asciiz "/home/cloja/Documents/ESPOL/6S/organizacion/proyecto/TablaIni.txt"      # filename for input
+myFile: .asciiz "/home/cloja/Documents/ESPOL/6S/organizacion/proyecto/TablaIni.txt\n"      # filename for input
 buffer: .space 1000
